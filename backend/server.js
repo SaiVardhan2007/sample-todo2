@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors())
 
 mongoose.connect(process.env.MONGO_URL, {
-    dbName: 'sample todo 2'
+    dbName: 'sampletodo2'
 })
 .then(() =>console.log('MongoDb connected'))
 .catch((err) => console.log('MongoDb connection Failed: ', err))
