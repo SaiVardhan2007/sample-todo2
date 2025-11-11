@@ -18,5 +18,5 @@ app.use('/api/todos', todoroutes)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
-    console.log('Serve started running on PORT ', PORT);
+    console.log('Server started running on PORT ', PORT);
 })
