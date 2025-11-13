@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 
 export default function TodoForm({onAdd}) {
-  const [search, setSearch] = useState('');
+  const [title, setTitle] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd(search);
-    setSearch('');
-
+    if (title.trim()) {
+      onAdd(title);
+      setTitle('');
+    }
   }
 
   return (
@@ -14,9 +15,10 @@ export default function TodoForm({onAdd}) {
       <form onSubmit={handleSubmit}>
         <input
           type='text'
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder='Enter Todo'
-          value={search}
+          value={title}
+          required
           />
         <button type='submit'>Add</button>
       </form>

@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors({
   origin: [
     'http://localhost:3000',          
-    'https://sample-todo2.vercel.app'  
+    'sample-todo2-irji.vercel.app'  
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
@@ -19,8 +19,11 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL, {
     dbName: 'sampletodo2'
 })
-.then(() =>console.log('MongoDb connected'))
-.catch((err) => console.log('MongoDb connection Failed: ', err))
+.then(() => console.log('MongoDB connected successfully'))
+.catch((err) => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+})
 
 const todoroutes = require('./routes/todos')
 app.use('/api/todos', todoroutes)

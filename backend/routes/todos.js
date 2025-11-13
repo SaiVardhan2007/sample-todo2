@@ -29,22 +29,26 @@ router.post('/', async(req,res) => {
 })
 
 router.patch('/:id', async(req, res) => {
-    const {id} = req.params;
-    const todo = await Todo.findById(id);
-    if (!todo) {
-        return res.status(404).json({'message': 'Todo not found'});
+    try {
+        const {id} = req.params;
+        const todo = await Todo.findById(id);
+        
+        if (!todo) {
+            return res.status(404).json({'message': 'Todo not found'});
         }
-    if (req.body.title){
-        todo.title = req.body.title;
-    }
-    if (req.body.completed !== undefined){
-        todo.completed = req.body.completed;
-    }
-    try{
+        
+        if (req.body.title !== undefined){
+            todo.title = req.body.title;
+        }
+        if (req.body.completed !== undefined){
+            todo.completed = req.body.completed;
+        }
+        
         const patchtodo = await todo.save();  
         res.status(200).json(patchtodo)
     }
     catch(err){
+        console.log(`Error updating todo: ${err}`);
         res.status(400).json({'message' : 'error during update of todo list'})
     }
 })
@@ -52,9 +56,15 @@ router.patch('/:id', async(req, res) => {
 router.delete('/:id', async(req, res) => {
     try{
         const todoDelete = await Todo.findByIdAndDelete(req.params.id);
+        
+        if (!todoDelete) {
+            return res.status(404).json({'message': 'Todo not found'});
+        }
+        
         res.status(200).json({'message' : 'todo successfully deleted'})
     }
     catch(err){
+        console.log(`Error deleting todo: ${err}`);
         res.status(400).json({'message' : 'error during deleting of todo list'})
     }
 })

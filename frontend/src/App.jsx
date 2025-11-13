@@ -31,11 +31,13 @@ function App() {
   }
   const toggleTodo = async (id) => {
     const todo = list.find((i) => i._id === id)
+    if (!todo) return;
+    
     try {
       const response = await axios.patch(`${API_URL}/${id}`, {
-      completed : !todo.completed
+        completed : !todo.completed
       })
-      setList(list.map((t)=> t._id === id ? response.data : t));
+      setList(list.map((i)=> i._id === id ? response.data : i));
     }
     catch(err){
       console.log(`error during toggling todo: ${err}`)
@@ -43,11 +45,8 @@ function App() {
   }
   const deleteTodo = async (id) => {
     try{
-      const todo = list.find((e)=> e._id === id);
-      if (todo){
-        const response = await axios.delete(`${API_URL}/${id}`);
-        setList(list.filter(i => i._id !== id ));
-      }
+      await axios.delete(`${API_URL}/${id}`);
+      setList(list.filter(i => i._id !== id));
     }
     catch(err){
       console.log(`error while deleting todo: ${err}`)
