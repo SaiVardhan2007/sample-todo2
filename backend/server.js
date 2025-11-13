@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors({
   origin: [
     'http://localhost:3000',          
-    'sample-todo2-irji.vercel.app'  
+    'https://sample-todo2-irji.vercel.app'  
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],

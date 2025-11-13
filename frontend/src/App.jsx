@@ -7,6 +7,10 @@ import './App.css'
 function App() {
   const [list, setList] = useState([])
   const API_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/todos`
+  
+  console.log('Environment REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+  console.log('Final API_URL:', API_URL);
+  
   useEffect(()=> {
     fetchTodos();
   }, [])
