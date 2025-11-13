@@ -5,7 +5,16 @@ const mongoose = require('mongoose')
 const app = express();
 dotenv.config()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:3000',          
+    'https://sample-todo2.vercel.app'  
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
 
 mongoose.connect(process.env.MONGO_URL, {
     dbName: 'sampletodo2'
